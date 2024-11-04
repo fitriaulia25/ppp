@@ -71,4 +71,11 @@ class Kernel extends HttpKernel
         'role.redirect' => \App\Http\Middleware\RedirectIfRole::class,
 ];
     
+protected function schedule(Schedule $schedule)
+{
+    $schedule->call(function () {
+        app()->call('App\Http\Controllers\AtensiController@deleteOldRecords');
+    })->daily();
+}
+
 }

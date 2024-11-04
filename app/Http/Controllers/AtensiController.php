@@ -12,7 +12,9 @@ class AtensiController extends Controller
     // Menampilkan daftar atensi
     public function index()
     {
-        $data = Atensi::all();
+       
+
+        $data = Atensi::orderBy('tanggal_waktu', 'desc')->get();
         return view('atensi.index', compact('data'));
     }
 

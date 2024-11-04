@@ -69,19 +69,14 @@
 
         .sidebar {
             width: 250px;
-            background-color: #fff;
+            background-color: #ffffff;
             padding: 20px;
             position: fixed;
             top: 60px;
-            left: -250px;
+            left: 0;
             height: calc(100vh - 60px);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
-            transition: left 0.3s ease;
-        }
-
-        .sidebar.show {
-            left: 0;
         }
 
         .sidebar a {
@@ -107,35 +102,33 @@
             flex-grow: 1;
             padding: 20px;
             background-color: #ffffff;
-            border-left: 1px solid #dee2e6;
-            transition: margin-left 0.3s ease;
-            margin-left: 0; /* Start without sidebar */
+            margin-left: 250px;
         }
 
-        .main-content.margin-left {
-            margin-left: 250px; /* Add margin when sidebar is shown */
+        .content-box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
-        .menu-icon {
-            font-size: 30px;
-            cursor: pointer;
-            margin-left: 0px;
-            margin-right: 10px;
-            color: #007bff;
+        .content-box .box {
+            width: 24%;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-        }
+        .box-atensi { background-color: #4CAF50; }
+        .box-agenda { background-color: #FFA500; }
+        .box-customer { background-color: #FF5733; }
+        .box-admin { background-color: #007bff; }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="d-flex align-items-center">
-            <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+            <i class="fas fa-bars menu-icon"></i>
             <img src="{{ asset('img/lapas.png') }}" alt="Logo" class="logo">
             <span class="title">JurnalLasgar</span>
         </div>
@@ -150,6 +143,7 @@
             <h4>Dashboard</h4>
             <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="#"><i class="fas fa-chart-line"></i> Statistics</a>
+            <a href="#"><i class="fas fa-user"></i> User Profile</a>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
@@ -159,34 +153,62 @@
         </div>
 
         <div class="main-content" id="mainContent">
-            <h3 class="mt-3">Agenda List</h3>
-            <ul class="list-group">
-                @foreach($agendas as $agenda)
-                    <li class="list-group-item">
-                        <strong>{{ $agenda->acara_kegiatan }}</strong><br>
-                        <small>Date: {{ $agenda->tanggal->format('d M Y') }} | Time: {{ $agenda->waktu }}</small><br>
-                        <small>Location: {{ $agenda->tempat }} | Attended by: {{ $agenda->diikuti_oleh }}</small><br>
-                        <small>{{ $agenda->keterangan }}</small>
-                    </li>
-                @endforeach
-            </ul>
+            <h3>Dashboard <span class="text-muted">Administrator</span></h3>
+
+            <!-- Content Boxes -->
+            <div class="content-box">
+                <div class="box box-atensi">
+                    <h2>Atensi</h2>
+                    <p>Jumlah Atensi: 43</p>
+                    <button onclick="showDetail('Atensi', 'Jumlah atensi yang ada: 43')" class="btn btn-light">Lihat Detail Atensi</button>
+                </div>
+                <div class="box box-agenda">
+                    <h2>Agenda</h2>
+                    <p>Jumlah Agenda: 4</p>
+                    <button onclick="showDetail('Agenda', 'Jumlah agenda yang ada: 4')" class="btn btn-light">Lihat Detail Agenda</button>
+                </div>
+                <div class="box box-customer">
+                    <h2>Customer</h2>
+                    <p>Jumlah Customer: 3</p>
+                    <button onclick="showDetail('Customer', 'Jumlah customer yang ada: 3')" class="btn btn-light">Lihat Detail Customer</button>
+                </div>
+                <div class="box box-admin">
+                    <h2>Admin</h2>
+                    <p>Jumlah Admin: 1</p>
+                    <button onclick="showDetail('Admin', 'Jumlah admin yang ada: 1')" class="btn btn-light">Lihat Detail Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Detail -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Informasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="detailTitle"></h5>
+                    <p id="detailContent"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            var mainContent = document.getElementById("mainContent");
-
-            if (sidebar.style.left === "0px") {
-                sidebar.style.left = "-250px"; // Hide the sidebar
-                mainContent.classList.remove('margin-left'); // Remove margin
-            } else {
-                sidebar.style.left = "0px"; // Show the sidebar
-                mainContent.classList.add('margin-left'); // Add margin
-            }
+        // Fungsi untuk menampilkan detail di modal
+        function showDetail(title, content) {
+            document.getElementById('detailTitle').innerText = title;
+            document.getElementById('detailContent').innerText = content;
+            var detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            detailModal.show();
         }
     </script>
 </body>

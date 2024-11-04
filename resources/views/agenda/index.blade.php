@@ -89,7 +89,7 @@
     </table>
 
     <div class="d-flex justify-content-end mt-3">
-        <a href="{{ route('index') }}" class="btn btn-primary px-4 back-button">Back</a>
+        <a href="{{ route('dashboard') }}" class="btn btn-primary px-4 back-button">Back</a>
     </div>
 </div>
 @endsection
