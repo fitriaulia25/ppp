@@ -120,5 +120,17 @@ class AtensiController extends Controller
     
     return view('atensi.show', compact('atensi')); // Mengarahkan ke view dengan data
 }
-
+public function getLatestAtensis()
+{
+   
+    return Atensi::orderBy('tanggal', 'desc')->take(5)->get();
+}
+private function removeOldAtensis()
+{
+   
+    $count = Atensi::count();
+    if ($count > 5) {
+       atensi::orderBy('tanggal', 'asc')->take($count - 5)->delete();
+    }
+}
 }

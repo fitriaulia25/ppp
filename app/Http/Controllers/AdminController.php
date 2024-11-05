@@ -18,7 +18,7 @@ class AdminController extends Controller
         $atensiCount = Atensi::count(); // Menghitung jumlah atensi 
         $userCount = User::count(); // Menghitung jumlah pengguna
 
-        return view('dashboard', compact('agendaCount', 'atensiCount', 'userCount'));
+        return view('admin.dashboard', compact('agendaCount', 'atensiCount', 'userCount'));
         // Pass the agendas to the view
         return view('admin.dashboard', compact('agendas'));
     }

@@ -197,6 +197,30 @@
                 width: 100%;
             }
         }
+        h4 {
+    font-size: 24px; /* Increase font size */
+    font-weight: bold; /* Make the font bold */
+    color: #007bff; /* Change text color */
+    margin-top: 20px; /* Add some space above the heading */
+    margin-bottom: 10px; /* Add some space below the heading */
+    border-bottom: 2px solid #007bff; /* Add a bottom border */
+    padding-bottom: 5px; /* Add some padding below the text */
+    text-transform: uppercase; /* Make the text uppercase */
+}
+
+.list-group {
+    margin-bottom: 20px; /* Add space below the list */
+}
+
+.list-group-item {
+    border: 1px solid #e0e0e0; /* Add a border to list items */
+    border-radius: 5px; /* Round the corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1; /* Change background color on hover */
+}
     </style>
 </head>
 <body>
@@ -304,11 +328,27 @@
                         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                     </ol>
                 </nav>
-                <h3>Agenda</h3>
-                <div class="agenda-item">Agenda item 1</div>
-                <div class="agenda-item">Agenda item 2</div>
-                <div class="agenda-item">Agenda item 3</div>
-                <div class="agenda-item">Agenda item 4</div>
+                <h3>Informasi</h3>
+
+    <!-- Display the latest agendas -->
+    <h4>Latest Agenda</h4>
+    <ul class="list-group">
+        @foreach($latestAgendas as $agenda)
+            <li class="list-group-item">
+                <strong>{{ $agenda->acara_kegiatan }}</strong> - {{ $agenda->tanggal }} <br>
+                <small>{{ $agenda->tempat }}</small>
+            </li>
+        @endforeach
+    </ul>
+    <h4>Latest Atensi</h4>
+    <ul class="list-group">
+        @foreach($latestAtensis as $atensi)
+            <li class="list-group-item">
+                <strong>{{ $atensi->kegiatan }}</strong> - {{ $atensi->tanggal_waktu }} <br>
+                <small>{{ $atensi->yth}}</small>
+            </li>
+        @endforeach
+    </ul>
             </div>
         </div>
     </div>

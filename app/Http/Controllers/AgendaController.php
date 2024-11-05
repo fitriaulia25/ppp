@@ -162,4 +162,17 @@ class AgendaController extends Controller
     // Hapus agenda yang lebih tua dari 1 tahun
     Agenda::where('tanggal', '<', $oneYearAgo)->delete();
 }
+public function getLatestAgendas()
+{
+    // Ambil 5 agenda terbaru
+    return Agenda::orderBy('tanggal', 'desc')->take(5)->get();
+}
+private function removeOldAgendas()
+{
+    // Hapus agenda jika lebih dari 5
+    $count = Agenda::count();
+    if ($count > 5) {
+        Agenda::orderBy('tanggal', 'asc')->take($count - 5)->delete();
+    }
+}
 }

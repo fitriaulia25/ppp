@@ -122,7 +122,7 @@ End, [11/4/2024 9:37 AM]
  
         .box-atensi { background-color: #4CAF50; } 
         .box-agenda { background-color: #FFA500; } 
-        .box-customer { background-color: #FF5733; } 
+        .box-akun { background-color: #FF5733; } 
         .box-admin { background-color: #007bff; } 
     </style> 
 </head> 
@@ -171,15 +171,10 @@ class="fas fa-user"></i> User Profile</a>
                     <p>Jumlah Agenda: {{ $agendaCount }}</p> 
                     <button onclick="showDetail('Agenda', 'Jumlah agenda yang ada: {{ $agendaCount }}')" class="btn btn-light">Lihat Detail Agenda</button> 
                 </div> 
-                <div class="box box-customer"> 
-                    <h2>Customer</h2> 
-                    <p>Jumlah Customer: {{ $customerCount }}</p> 
-                    <button onclick="showDetail('Customer', 'Jumlah customer yang ada: {{ $customerCount }}')" class="btn btn-light">Lihat Detail Customer</button> 
-                </div> 
-                <div class="box box-admin"> 
-                    <h2>Admin</h2> 
-                    <p>Jumlah Admin: {{ $adminCount }}</p> 
-                    <button onclick="showDetail('Admin', 'Jumlah admin yang ada: {{ $adminCount }}')" class="btn btn-light">Lihat Detail Admin</button> 
+                <div class="box box-akun"> 
+                    <h2>Akun</h2> 
+                    <p>Jumlah Akun: {{ $userCount }}</p> 
+                    <button onclick="showDetail('UserAkun', 'Jumlah akun yang ada: {{ $userCount }}')" class="btn btn-light">Lihat Detail User akun</button> 
                 </div> 
             </div> 
         </div> 
