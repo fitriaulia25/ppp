@@ -13,7 +13,7 @@ class SuperAdminController extends Controller
     {
         $agendas = Agenda::all(); // Make sure you fetch your agendas
         $atensi = Atensi::all(); // Fetch attentions if needed
-        $users = User::all(); // Fetch users if needed
+        $users = User::paginate(10); // Fetch users if needed
     
         return view('super_admin.dashboard', compact('agendas', 'atensi', 'users'));
     }

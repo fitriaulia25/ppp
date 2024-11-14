@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Exports\AgendaExport;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
 // Halaman utama
@@ -22,9 +23,9 @@ Auth::routes();
 Route::get('/home', function () {
     if (Auth::user()->hasRole('super_admin')) {
         return redirect()->route('super_admin.dashboard');
-    } elseif (Auth::user()->hasRole('admin')) {
+      } elseif (Auth::user()->hasRole('admin')) {
         return redirect()->route('admin.dashboard');
-    } else {
+      } else {
         return redirect()->route('dashboard'); // Rute untuk user biasa
     }
 })->name('home');
@@ -82,6 +83,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 // Kelompok rute untuk super admin
 Route::middleware(['auth', 'role:super_admin'])->group(function () {
     Route::get('/super-admin/dashboard', [SuperAdminController::class, 'index'])->name('super_admin.dashboard');
+    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+       
 });
 
 // Rute untuk mengekspor agenda
@@ -95,3 +100,14 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/'); // Mengarahkan ke halaman utama
 })->name('logout');
+
+
+
+// Route untuk menampilkan form edit user
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+
+// Route untuk memperbarui user
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+// Route untuk menghapus user
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
