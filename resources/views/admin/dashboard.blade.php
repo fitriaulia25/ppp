@@ -20,7 +20,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: fixed;
+            position: fixed;    
             width: 100%;
             top: 0;
             z-index: 1000;
@@ -196,39 +196,7 @@
                                     <button class="btn btn-danger btn-sm">Delete</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>sarada uchiha</td>
-                                <td>sarada</td>
-                                <td>sarada</td>
-                                <td>sarada@gmail.com</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm">Edit</button>
-                                    <button class="btn btn-danger btn-sm">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>sasuke uchiha</td>
-                                <td>sasuke</td>
-                                <td>sasuke</td>
-                                <td>sasuke@gmail.com</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm">Edit</button>
-                                    <button class="btn btn-danger btn-sm">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>shikadai nara</td>
-                                <td>shikadai</td>
-                                <td>shikadai</td>
-                                <td>shikadai@gmail.com</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm">Edit</button>
-                                  <button class="btn btn-danger btn-sm">Delete</button>
-                                </td>
-                            </tr>
+                            <tr>    
                         </tbody>
                     </table>
                 </div>
